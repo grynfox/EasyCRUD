@@ -121,9 +121,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\assets\Chart.bundle.js" />
-    <Content Include="Scripts\assets\Chart.bundle.min.js" />
-    <Content Include="Scripts\assets\Chart.js" />
     <Content Include="Scripts\assets\easylogo.jpg" />
     <Content Include="Scripts\assets\igor.jpg" />
     <Content Include="Scripts\assets\logo.jpg" />
@@ -140,15 +137,20 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\CadastroController.cs" />
+    <Compile Include="API\ReportsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\CadastroController.cs" />
-    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803272024222_Estoque.cs" />
+    <Compile Include="Migrations\201803272024222_Estoque.Designer.cs">
+      <DependentUpon>201803272024222_Estoque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BancoContext.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Produto.cs" />
@@ -175,6 +177,11 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Cadastro\" />
     <Folder Include="Views\Reports\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803272024222_Estoque.resx">
+      <DependentUpon>201803272024222_Estoque.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
