@@ -7,6 +7,8 @@ import { Renderer2 } from '@angular/core';
 import { AppComponent } from './app.component';
 import { WebApiComponent } from './web-api/web-api.component';
 import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,12 @@ import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
     // NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-XSRF-TOKEN'
+  }),
   ],
   providers: [],
   bootstrap: [AppComponent]
