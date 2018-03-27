@@ -1,0 +1,54 @@
+﻿@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+
+        <base href="/">
+        <meta name="description" content="The description of my page" />
+    </head>
+    <body class="sidebar-mini fixed  pace-done">
+        <div class="wrapper">
+            <app-root>
+                Loading...
+            </app-root>
+        </div>
+
+
+        @Scripts.Render("~/angularApp/dev")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@
+
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Estoque</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="~/Scripts/assets/logo2.jpg">
+</head>
+<body>
+    <app-root>Loading...</app-root>
+
+    <script type="text/javascript" src="Scripts/inline.bundle.js"></script>
+        <script type="text/javascript" src="Scripts/polyfills.bundle.js"></script>
+        <script type="text/javascript" src="Scripts/styles.bundle.js"></script>
+        <script type="text/javascript" src="Scripts/scripts.bundle.js"></script>
+        <script type="text/javascript" src="Scripts/vendor.bundle.js"></script>
+        <script type="text/javascript" src="Scripts/main.bundle.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+

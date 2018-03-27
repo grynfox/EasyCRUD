@@ -1,0 +1,63 @@
+<div class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <form class="form-inline">
+      <button type="button" class="btn btn-outline-success"
+  (click)="aba= 'home'">Easy </button>
+  <button class="btn btn-sm btn-outline-secondary " (click)="aba= 'cadastroProd'"
+   type="button">Product Registration</button>
+    <button class="btn btn-sm btn-outline-secondary "(click)="aba= 'cadastroCat'"
+     type="button">Category Registration</button>
+    <button class="btn btn-sm btn-outline-secondary "(click)="aba= 'relatorio'" type="button">
+     Reports</button>
+    </form>
+  </div>
+
+<div class="container" [ngSwitch]="aba">
+  <p *ngSwitchCase="'relatorio'">relatorio</p>
+</div>
+<!--cadastro de produtos!-->
+<form [ngSwitch]="aba" >
+  <!--Cadastro de Produtos-->
+    <div class="form-row" *ngSwitchCase="'cadastroProd'">
+        <div class="col-md-4 mb-3">
+          <label for="validationServer01">Produto</label>
+          <input type="text" class="form-control is-valid" id="CadastraProduto" value="Nome Produto" required>
+          <div class="valid-feedback">
+            Digite o nome do produto a ser cadastrado.
+          </div>
+          <div class="form-group">
+              <select class="custom-select" required>
+                <option value="">Categoria</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div>
+              <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Cadastra um Produto no banco de dados">Cadastrar</button>
+            </div>
+        </div>
+      </div>
+      <!--Cadastro de Categorias-->
+    <div class="form-row" *ngSwitchCase="'cadastroCat'">
+      <div class="col-md-4 mb-3">
+        <label for="validationServer01">Categoria</label>
+        <input type="text" class="form-control is-valid" id="CadastraCat" value="Nome Categoria" required>
+        <div class="valid-feedback">
+          Digite a Categoria a ser cadastrada.
+        </div>
+          <div>
+            <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Cadastra um Produto no banco de dados">Cadastrar</button>
+          </div>
+      </div>
+    </div>
+
+    <!--Mostra minha apresentação!-->
+    <div class="card text-center"  *ngSwitchCase="'home'">
+      <!--img class="card-img-top" src="\assets\igor.jpg" alt="Card image cap"!-->
+      <div class="card-body">
+        <h5 class="card-title">Igor Alexandre Saraiva Silva</h5>
+        <p class="card-text">This is the realization of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>
+        <a href="https://www.linkedin.com/in/igoralexandre/" class="btn-outline-info">Linkedin</a>
+      </div>
+    </div>
+  </form>

@@ -7,6 +7,8 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
+using EasyCRUD.App_Start;
+using System.Web.Optimization;
 
 namespace EasyCRUD
 {
@@ -17,7 +19,8 @@ namespace EasyCRUD
             // Código que é executado na inicialização do aplicativo
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);            
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }
