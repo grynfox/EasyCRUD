@@ -41,12 +41,12 @@
     <div class="form-row" *ngSwitchCase="'cadastroCat'">
       <div class="col-md-4 mb-3">
         <label for="validationServer01">Categoria</label>
-        <input type="text" class="form-control is-valid" id="CadastraCat" required>
+        <input type="text" class="form-control is-valid" id="CadastraCat" [(ngModel)]="NomeCat" required>
         <div class="valid-feedback">
           Digite a Categoria a ser cadastrada.
         </div>
           <div>
-            <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Cadastra um Produto no banco de dados">Cadastrar</button>
+            <button class="btn btn-success" type="submit" (click)="cadastrar();" data-toggle="tooltip" data-placement="top" title="Cadastra um Produto no banco de dados">Cadastrar</button>
           </div>
       </div>
     </div>

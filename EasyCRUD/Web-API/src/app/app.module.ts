@@ -1,3 +1,4 @@
+import { CadastroService } from './services/cadastro.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -27,7 +28,7 @@ import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
       headerName: 'X-XSRF-TOKEN'
   }),
   ],
-  providers: [],
+  providers: [CadastroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

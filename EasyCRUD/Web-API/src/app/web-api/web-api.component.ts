@@ -1,3 +1,4 @@
+import { CadastroService } from './../services/cadastro.service';
 import { Component, OnInit } from '@angular/core';
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
@@ -11,7 +12,11 @@ import { Observable } from 'rxjs/Observable';
 export class WebApiComponent implements OnInit {
 // tslint:disable-next-line:no-inferrable-types
 aba: string = 'home';
-  constructor(private http: Http) {
+NomeCat: string;
+  constructor(private service: CadastroService) {
+   }
+   cadastrar() {
+     this.service.cadastraCategoria(this.NomeCat).subscribe(retorno => alert(retorno));
    }
 
   ngOnInit() {

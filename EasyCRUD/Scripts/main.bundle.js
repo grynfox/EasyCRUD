@@ -74,6 +74,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var cadastro_service_1 = __webpack_require__("./src/app/services/cadastro.service.ts");
 var platform_browser_1 = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
@@ -103,13 +104,143 @@ var AppModule = /** @class */ (function () {
                     headerName: 'X-XSRF-TOKEN'
                 }),
             ],
-            providers: [],
+            providers: [cadastro_service_1.CadastroService],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);
     return AppModule;
 }());
 exports.AppModule = AppModule;
+
+
+/***/ }),
+
+/***/ "./src/app/services/cadastro.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var HttpHelper_1 = __webpack_require__("./src/app/utils/HttpHelper.ts");
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var Observable_1 = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
+__webpack_require__("./node_modules/rxjs/_esm5/Rx.js");
+var CadastroService = /** @class */ (function (_super) {
+    __extends(CadastroService, _super);
+    function CadastroService(http) {
+        var _this = _super.call(this, http) || this;
+        _this._cadastraCategoria = "Cadastro/CadastraCategoria";
+        _this._cadastraProduto = "Cadastro/CadastraProduto";
+        return _this;
+    }
+    CadastroService.prototype.cadastraCategoria = function (nomeCatParam) {
+        var result = this.postaction(this._cadastraCategoria, { NomeCat: nomeCatParam }).map(function (result) {
+            var pedido = result;
+            return pedido;
+        }).catch(function (err) { return Observable_1.Observable.throw(err || 'Server error'); });
+        return result;
+    };
+    CadastroService.prototype.cadastraProduto = function (NomeProd, IdCat) {
+    };
+    CadastroService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], CadastroService);
+    return CadastroService;
+}(HttpHelper_1.HttpHelper));
+exports.CadastroService = CadastroService;
+
+
+/***/ }),
+
+/***/ "./src/app/utils/HttpHelper.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var Observable_1 = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
+__webpack_require__("./node_modules/rxjs/_esm5/Rx.js");
+var HttpHelper = /** @class */ (function () {
+    function HttpHelper(_http) {
+        this._http = _http;
+        this._base = "API/";
+    }
+    Object.defineProperty(HttpHelper.prototype, "haserror", {
+        get: function () {
+            return this.errormsg != null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    HttpHelper.prototype.obj_to_query = function (obj) {
+        var parts = [];
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                parts.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+            }
+        }
+        return parts ? "?" + parts.join('&') : "";
+    };
+    HttpHelper.prototype.getaction = function (path, body) {
+        if (body === void 0) { body = null; }
+        return this._http.get(this._base + path + this.obj_to_query(body))
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this._handleError);
+    };
+    HttpHelper.prototype.postaction = function (path, param) {
+        if (param === void 0) { param = null; }
+        this.errormsg = null;
+        var body = JSON.stringify(param);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this._http.post(this._base + path, body, options)
+            .map(this._handleSuccess)
+            .catch(this._handleError);
+    };
+    HttpHelper.prototype._handleError = function (error) {
+        if (error.status == 401) {
+            localStorage.removeItem('currentUser');
+            location.reload();
+        }
+        return Observable_1.Observable.throw(error || 'Server error');
+    };
+    HttpHelper.prototype._handleSuccess = function (success) {
+        var jsonresult = null;
+        try {
+            jsonresult = success.json();
+        }
+        catch (ex) {
+            return success;
+        }
+        return jsonresult;
+    };
+    return HttpHelper;
+}());
+exports.HttpHelper = HttpHelper;
 
 
 /***/ }),
@@ -124,7 +255,7 @@ module.exports = ""
 /***/ "./src/app/web-api/web-api.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"navbar navbar-dark navbar-expand-lg bg-dark\">\n    <form class=\"form-inline\">\n      <button type=\"button\" class=\"btn btn-outline-success\"\n  (click)=\"aba= 'home'\">Easy </button>\n  <button class=\"btn btn-sm btn-outline-secondary \" (click)=\"aba= 'cadastroProd'\"\n   type=\"button\">Product Registration</button>\n    <button class=\"btn btn-sm btn-outline-secondary \"(click)=\"aba= 'cadastroCat'\"\n     type=\"button\">Category Registration</button>\n    <button class=\"btn btn-sm btn-outline-secondary \"(click)=\"aba= 'relatorio'\" type=\"button\">\n     Reports</button>\n    </form>\n  </div>\n\n<div class=\"container\" [ngSwitch]=\"aba\">\n  <p *ngSwitchCase=\"'relatorio'\">relatorio</p>\n</div>\n<!--cadastro de produtos!-->\n<form [ngSwitch]=\"aba\" >\n  <!--Cadastro de Produtos-->\n    <div class=\"form-row\" *ngSwitchCase=\"'cadastroProd'\">\n        <div class=\"col-md-4 mb-3\">\n          <label for=\"validationServer01\">Produto</label>\n          <input type=\"text\" class=\"form-control is-valid\" id=\"CadastraProduto\" required>\n          <div class=\"valid-feedback\">\n            Digite o nome do produto a ser cadastrado.\n          </div>\n          <div class=\"form-group\">\n              <select class=\"custom-select\" required>\n                <option value=\"\">Categoria</option>\n                <option value=\"1\">One</option>\n                <option value=\"2\">Two</option>\n                <option value=\"3\">Three</option>\n              </select>\n            </div>\n            <div>\n              <button class=\"btn btn-success\" type=\"submit\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Cadastra um Produto no banco de dados\">Cadastrar</button>\n            </div>\n        </div>\n      </div>\n      <!--Cadastro de Categorias-->\n    <div class=\"form-row\" *ngSwitchCase=\"'cadastroCat'\">\n      <div class=\"col-md-4 mb-3\">\n        <label for=\"validationServer01\">Categoria</label>\n        <input type=\"text\" class=\"form-control is-valid\" id=\"CadastraCat\" required>\n        <div class=\"valid-feedback\">\n          Digite a Categoria a ser cadastrada.\n        </div>\n          <div>\n            <button class=\"btn btn-success\" type=\"submit\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Cadastra um Produto no banco de dados\">Cadastrar</button>\n          </div>\n      </div>\n    </div>\n\n    <!--Mostra minha apresentação!-->\n    <div class=\"card text-center\"  *ngSwitchCase=\"'home'\">\n      <!--img class=\"card-img-top\" src=\"\\assets\\igor.jpg\" alt=\"Card image cap\"!-->\n      <div class=\"card-body\">\n        <h5 class=\"card-title\">Igor Alexandre Saraiva Silva</h5>\n        <p class=\"card-text\">This is the realization of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>\n        <a href=\"https://www.linkedin.com/in/igoralexandre/\" class=\"btn-outline-info\">Linkedin</a>\n      </div>\n    </div>\n  </form>\n"
+module.exports = "<div class=\"navbar navbar-dark navbar-expand-lg bg-dark\">\n    <form class=\"form-inline\">\n      <button type=\"button\" class=\"btn btn-outline-success\"\n  (click)=\"aba= 'home'\">Easy </button>\n  <button class=\"btn btn-sm btn-outline-secondary \" (click)=\"aba= 'cadastroProd'\"\n   type=\"button\">Product Registration</button>\n    <button class=\"btn btn-sm btn-outline-secondary \"(click)=\"aba= 'cadastroCat'\"\n     type=\"button\">Category Registration</button>\n    <button class=\"btn btn-sm btn-outline-secondary \"(click)=\"aba= 'relatorio'\" type=\"button\">\n     Reports</button>\n    </form>\n  </div>\n\n<div class=\"container\" [ngSwitch]=\"aba\">\n  <p *ngSwitchCase=\"'relatorio'\">relatorio</p>\n</div>\n<!--cadastro de produtos!-->\n<form [ngSwitch]=\"aba\" >\n  <!--Cadastro de Produtos-->\n    <div class=\"form-row\" *ngSwitchCase=\"'cadastroProd'\">\n        <div class=\"col-md-4 mb-3\">\n          <label for=\"validationServer01\">Produto</label>\n          <input type=\"text\" class=\"form-control is-valid\" id=\"CadastraProduto\" required>\n          <div class=\"valid-feedback\">\n            Digite o nome do produto a ser cadastrado.\n          </div>\n          <div class=\"form-group\">\n              <select class=\"custom-select\" required>\n                <option value=\"\">Categoria</option>\n                <option value=\"1\">One</option>\n                <option value=\"2\">Two</option>\n                <option value=\"3\">Three</option>\n              </select>\n            </div>\n            <div>\n              <button class=\"btn btn-success\" type=\"submit\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Cadastra um Produto no banco de dados\">Cadastrar</button>\n            </div>\n        </div>\n      </div>\n      <!--Cadastro de Categorias-->\n    <div class=\"form-row\" *ngSwitchCase=\"'cadastroCat'\">\n      <div class=\"col-md-4 mb-3\">\n        <label for=\"validationServer01\">Categoria</label>\n        <input type=\"text\" class=\"form-control is-valid\" id=\"CadastraCat\" [(ngModel)]=\"NomeCat\" required>\n        <div class=\"valid-feedback\">\n          Digite a Categoria a ser cadastrada.\n        </div>\n          <div>\n            <button class=\"btn btn-success\" type=\"submit\" (click)=\"cadastrar();\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Cadastra um Produto no banco de dados\">Cadastrar</button>\n          </div>\n      </div>\n    </div>\n\n    <!--Mostra minha apresentação!-->\n    <div class=\"card text-center\"  *ngSwitchCase=\"'home'\">\n      <!--img class=\"card-img-top\" src=\"\\assets\\igor.jpg\" alt=\"Card image cap\"!-->\n      <div class=\"card-body\">\n        <h5 class=\"card-title\">Igor Alexandre Saraiva Silva</h5>\n        <p class=\"card-text\">This is the realization of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>\n        <a href=\"https://www.linkedin.com/in/igoralexandre/\" class=\"btn-outline-info\">Linkedin</a>\n      </div>\n    </div>\n  </form>\n"
 
 /***/ }),
 
@@ -143,16 +274,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var cadastro_service_1 = __webpack_require__("./src/app/services/cadastro.service.ts");
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
-var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 var WebApiComponent = /** @class */ (function () {
-    function WebApiComponent(http) {
-        this.http = http;
+    function WebApiComponent(service) {
+        this.service = service;
         // tslint:disable-next-line:no-inferrable-types
         this.aba = 'home';
     }
+    WebApiComponent.prototype.cadastrar = function () {
+        this.service.cadastraCategoria(this.NomeCat).subscribe(function (retorno) { return alert(retorno); });
+    };
     WebApiComponent.prototype.ngOnInit = function () {
     };
     WebApiComponent = __decorate([
@@ -161,7 +295,7 @@ var WebApiComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/web-api/web-api.component.html"),
             styles: [__webpack_require__("./src/app/web-api/web-api.component.css")]
         }),
-        __metadata("design:paramtypes", [http_1.Http])
+        __metadata("design:paramtypes", [cadastro_service_1.CadastroService])
     ], WebApiComponent);
     return WebApiComponent;
 }());

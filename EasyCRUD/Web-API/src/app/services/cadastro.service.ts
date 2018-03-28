@@ -7,12 +7,13 @@ import 'rxjs/Rx';
 @Injectable()
 export class CadastroService extends HttpHelper {
   private _cadastraCategoria = "Cadastro/CadastraCategoria";
+  private _cadastraProduto = "Cadastro/CadastraProduto";
 
   constructor( http: Http){
     super(http);
   }
-  cadastraCategoria(nomeCat: string){
-    let result = this.postaction(this._cadastraCategoria, { nomeCategoria: nomeCat}).map(
+  cadastraCategoria(nomeCatParam: string){
+    let result = this.postaction(this._cadastraCategoria, { NomeCat: nomeCatParam}).map(
       result => {
           let pedido = <any>result;
           return pedido;
@@ -20,8 +21,8 @@ export class CadastroService extends HttpHelper {
   ).catch(err => { return Observable.throw(err || 'Server error'); });
   return result;
   }
-  cadastraProduto(IdProd:number, NomeProd:string){
-      
+  cadastraProduto(NomeProd: string, IdCat: number){
+    
 
   }
 

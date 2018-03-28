@@ -17,7 +17,6 @@ namespace EasyCRUD.API
             this.banco = new BancoContext();
         }
 
-        [System.Web.Http.HttpPost]
         public void CadastraCategoria([FromBody] Categoria value)
         {
             Categoria cat = new Categoria();
@@ -25,7 +24,7 @@ namespace EasyCRUD.API
             banco.Categoria.Add(cat);
             banco.SaveChanges();
         }
-        [System.Web.Http.HttpPost]
+
         public void CadastraProduto([FromBody] Produto value)
         {
             Produto prod = new Produto();
