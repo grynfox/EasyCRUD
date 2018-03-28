@@ -16,24 +16,21 @@
 </div>
 <!--cadastro de produtos!-->
 <form [ngSwitch]="aba" >
+  <section class="two-way-binding">
   <!--Cadastro de Produtos-->
     <div class="form-row" *ngSwitchCase="'cadastroProd'">
         <div class="col-md-4 mb-3">
           <label for="validationServer01">Produto</label>
-          <input type="text" class="form-control is-valid" id="CadastraProduto" required>
+          <input type="text" class="form-control is-valid" id="DescProd" name="DescProd" [(ngModel)]="DescProd" required>
           <div class="valid-feedback">
             Digite o nome do produto a ser cadastrado.
           </div>
           <div class="form-group">
-              <select class="custom-select" required>
-                <option value="">Categoria</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+              <select ng-options="option.value as option.title" class="custom-select" required>
               </select>
             </div>
             <div>
-              <button class="btn btn-success" type="submit" data-toggle="tooltip" data-placement="top" title="Cadastra um Produto no banco de dados">Cadastrar</button>
+              <button class="btn btn-success" type="submit" (click)="cadastrarProduto(DescProd, IdCat);" data-toggle="tooltip" data-placement="top" title="Cadastra um Produto no banco de dados">Cadastrar Produto</button>
             </div>
         </div>
       </div>
@@ -41,12 +38,12 @@
     <div class="form-row" *ngSwitchCase="'cadastroCat'">
       <div class="col-md-4 mb-3">
         <label for="validationServer01">Categoria</label>
-        <input type="text" class="form-control is-valid" id="CadastraCat" [(ngModel)]="NomeCat" required>
+        <input class="form-control is-valid" type="text" id="NomeCat" name="NomeCat" [(ngModel)]="NomeCat" required>
         <div class="valid-feedback">
           Digite a Categoria a ser cadastrada.
         </div>
           <div>
-            <button class="btn btn-success" type="submit" (click)="cadastrar();" data-toggle="tooltip" data-placement="top" title="Cadastra um Produto no banco de dados">Cadastrar</button>
+            <button class="btn btn-success" type="submit" (click)="cadastrarCategoria(NomeCat);" data-toggle="tooltip" data-placement="top" title="Cadastra uma Categoria no banco de dados">Cadastrar Categoria</button>
           </div>
       </div>
     </div>
@@ -60,4 +57,6 @@
         <a href="https://www.linkedin.com/in/igoralexandre/" class="btn-outline-info">Linkedin</a>
       </div>
     </div>
+  </section>
   </form>
+

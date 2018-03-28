@@ -8,11 +8,11 @@ using System.Web.Mvc;
 
 namespace EasyCRUD.API
 {
-    public class CadastroController : ApiController
+    public class CategoriaController : ApiController
     {
 
         private BancoContext banco;
-        public CadastroController()
+        public CategoriaController()
         {
             this.banco = new BancoContext();
         }
@@ -25,12 +25,18 @@ namespace EasyCRUD.API
             banco.SaveChanges();
         }
 
-        public void CadastraProduto([FromBody] Produto value)
+        [System.Web.Http.HttpGet]
+        public List<Categoria> GetCategoria()
         {
-            Produto prod = new Produto();
-            prod = value;
-            banco.Produto.Add(prod);
+            return this.banco.Categoria.ToList()
+;
+        }
+        public IHttpActionResult ApagaCat(int IdCat)
+        {
+            var apagaCat = banco.Categoria.FirstOrDefault(linha => linha.IdCat == IdCat);
+            banco.Categoria.Remove(apagaCat);
             banco.SaveChanges();
+            return this.Ok("Deletado");
         }
     }
 }

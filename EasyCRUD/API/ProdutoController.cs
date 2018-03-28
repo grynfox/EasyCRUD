@@ -8,26 +8,20 @@ using System.Web.Mvc;
 
 namespace EasyCRUD.API
 {
-    public class ReportsController : ApiController
+    public class ProdutoController : ApiController
     {
         private BancoContext banco;
-        public ReportsController()
+        public ProdutoController()
         {
             this.banco = new BancoContext();
         }
 
-        [System.Web.Http.HttpGet]
-        public List<Categoria> GetCategoria()
+        public void CadastraProduto([FromBody] Produto value)
         {
-            return this.banco.Categoria.ToList()
-;
-        }
-        public IHttpActionResult ApagaCat(int IdCat)
-        {
-            var apagaCat = banco.Categoria.FirstOrDefault(linha => linha.IdCat == IdCat);
-            banco.Categoria.Remove(apagaCat);
+            Produto prod = new Produto();
+            prod = value;
+            banco.Produto.Add(prod);
             banco.SaveChanges();
-            return this.Ok("Deletado");
         }
         [System.Web.Http.HttpGet]
         public List<Produto> GetProdutos()
