@@ -26,7 +26,8 @@
             Digite o nome do produto a ser cadastrado.
           </div>
           <div class="form-group">
-              <select ng-options="option.value as option.title" class="custom-select" required>
+              <select ng-model="buscarCategoria" name="buscarCategoria" id="buscarCategoria" class="custom-select" required>
+                  <option *ngFor="let busca of categorias" [value]="busca.NomeCat">{{busca.NomeCat}}</option>
               </select>
             </div>
             <div>

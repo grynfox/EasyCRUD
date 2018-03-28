@@ -25,11 +25,11 @@ namespace EasyCRUD.API
             banco.SaveChanges();
         }
 
+
         [System.Web.Http.HttpGet]
         public List<Categoria> GetCategoria()
         {
-            return this.banco.Categoria.ToList()
-;
+            return this.banco.Categoria.ToList();
         }
         public IHttpActionResult ApagaCat(int IdCat)
         {

@@ -9,6 +9,7 @@ import { NgModel } from '@angular/forms';
 export class CadastroService extends HttpHelper {
   private _cadastraCategoria = 'Categoria/CadastraCategoria';
   private _cadastraProduto = 'Produto/CadastraProduto';
+  private _buscaCategoria = 'Categoria/GetCategoria';
 
   constructor( http: Http) {
     super(http);
@@ -36,6 +37,16 @@ export class CadastroService extends HttpHelper {
   ).catch(err => { return Observable.throw(err || 'Server error'); });
   return result;
   }
+  buscaCategoria(idCatParam: Number, nomeCatParam: string ) {
+    let result = this.getaction(this._buscaCategoria, { NomeCat: nomeCatParam, IdCat: idCatParam}).map(
+      // tslint:disable-next-line:no-shadowed-variable
+      result => {
 
+          let busca = <any>result;
+          return busca;
+      }
+  ).catch(err => { return Observable.throw(err || 'Server error'); });
+  return result;
+  }
 
 }

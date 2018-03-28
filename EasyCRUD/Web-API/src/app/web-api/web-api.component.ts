@@ -16,13 +16,20 @@ aba: string = 'home';
 NomeCat: string;
 DescProd: string;
 IdCat: number;
+categorias: any[];
+
   constructor(private service: CadastroService) {
+    this.buscarCategoria();
    }
    cadastrarCategoria() {
      this.service.cadastraCategoria(this.NomeCat).subscribe(retorno => alert(retorno));
    }
    cadastrarProduto() {
     this.service.cadastraProduto(this.DescProd, this.IdCat);
+
+   }
+   buscarCategoria() {
+    this.service.buscaCategoria(this.IdCat, this.NomeCat).subscribe(retorno => this.categorias = retorno);
 
    }
 

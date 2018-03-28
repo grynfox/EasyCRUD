@@ -164,6 +164,7 @@ var CadastroService = /** @class */ (function (_super) {
         var _this = _super.call(this, http) || this;
         _this._cadastraCategoria = 'Categoria/CadastraCategoria';
         _this._cadastraProduto = 'Produto/CadastraProduto';
+        _this._buscaCategoria = 'Categoria/GetCategoria';
         return _this;
     }
     CadastroService.prototype.cadastraCategoria = function (nomeCatParam) {
@@ -181,6 +182,15 @@ var CadastroService = /** @class */ (function (_super) {
         function (result) {
             var produto = result;
             return produto;
+        }).catch(function (err) { return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["a" /* Observable */].throw(err || 'Server error'); });
+        return result;
+    };
+    CadastroService.prototype.buscaCategoria = function (idCatParam, nomeCatParam) {
+        var result = this.getaction(this._buscaCategoria, { NomeCat: nomeCatParam, IdCat: idCatParam }).map(
+        // tslint:disable-next-line:no-shadowed-variable
+        function (result) {
+            var busca = result;
+            return busca;
         }).catch(function (err) { return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["a" /* Observable */].throw(err || 'Server error'); });
         return result;
     };
@@ -279,7 +289,7 @@ module.exports = ""
 /***/ "./src/app/web-api/web-api.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"navbar navbar-dark navbar-expand-lg bg-dark\">\n    <form class=\"form-inline\">\n      <button type=\"button\" class=\"btn btn-outline-success\"\n  (click)=\"aba= 'home'\">Easy </button>\n  <button class=\"btn btn-sm btn-outline-secondary \" (click)=\"aba= 'cadastroProd'\"\n   type=\"button\">Product Registration</button>\n    <button class=\"btn btn-sm btn-outline-secondary \"(click)=\"aba= 'cadastroCat'\"\n     type=\"button\">Category Registration</button>\n    <button class=\"btn btn-sm btn-outline-secondary \"(click)=\"aba= 'relatorio'\" type=\"button\">\n     Reports</button>\n    </form>\n  </div>\n\n<div class=\"container\" [ngSwitch]=\"aba\">\n  <p *ngSwitchCase=\"'relatorio'\">relatorio</p>\n</div>\n<!--cadastro de produtos!-->\n<form [ngSwitch]=\"aba\" >\n  <section class=\"two-way-binding\">\n  <!--Cadastro de Produtos-->\n    <div class=\"form-row\" *ngSwitchCase=\"'cadastroProd'\">\n        <div class=\"col-md-4 mb-3\">\n          <label for=\"validationServer01\">Produto</label>\n          <input type=\"text\" class=\"form-control is-valid\" id=\"DescProd\" name=\"DescProd\" [(ngModel)]=\"DescProd\" required>\n          <div class=\"valid-feedback\">\n            Digite o nome do produto a ser cadastrado.\n          </div>\n          <div class=\"form-group\">\n              <select ng-options=\"option.value as option.title\" class=\"custom-select\" required>\n              </select>\n            </div>\n            <div>\n              <button class=\"btn btn-success\" type=\"submit\" (click)=\"cadastrarProduto(DescProd, IdCat);\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Cadastra um Produto no banco de dados\">Cadastrar Produto</button>\n            </div>\n        </div>\n      </div>\n      <!--Cadastro de Categorias-->\n    <div class=\"form-row\" *ngSwitchCase=\"'cadastroCat'\">\n      <div class=\"col-md-4 mb-3\">\n        <label for=\"validationServer01\">Categoria</label>\n        <input class=\"form-control is-valid\" type=\"text\" id=\"NomeCat\" name=\"NomeCat\" [(ngModel)]=\"NomeCat\" required>\n        <div class=\"valid-feedback\">\n          Digite a Categoria a ser cadastrada.\n        </div>\n          <div>\n            <button class=\"btn btn-success\" type=\"submit\" (click)=\"cadastrarCategoria(NomeCat);\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Cadastra uma Categoria no banco de dados\">Cadastrar Categoria</button>\n          </div>\n      </div>\n    </div>\n\n    <!--Mostra minha apresentação!-->\n    <div class=\"card text-center\"  *ngSwitchCase=\"'home'\">\n      <!--img class=\"card-img-top\" src=\"\\assets\\igor.jpg\" alt=\"Card image cap\"!-->\n      <div class=\"card-body\">\n        <h5 class=\"card-title\">Igor Alexandre Saraiva Silva</h5>\n        <p class=\"card-text\">This is the realization of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>\n        <a href=\"https://www.linkedin.com/in/igoralexandre/\" class=\"btn-outline-info\">Linkedin</a>\n      </div>\n    </div>\n  </section>\n  </form>\n\n"
+module.exports = "<div class=\"navbar navbar-dark navbar-expand-lg bg-dark\">\n    <form class=\"form-inline\">\n      <button type=\"button\" class=\"btn btn-outline-success\"\n  (click)=\"aba= 'home'\">Easy </button>\n  <button class=\"btn btn-sm btn-outline-secondary \" (click)=\"aba= 'cadastroProd'\"\n   type=\"button\">Product Registration</button>\n    <button class=\"btn btn-sm btn-outline-secondary \"(click)=\"aba= 'cadastroCat'\"\n     type=\"button\">Category Registration</button>\n    <button class=\"btn btn-sm btn-outline-secondary \"(click)=\"aba= 'relatorio'\" type=\"button\">\n     Reports</button>\n    </form>\n  </div>\n\n<div class=\"container\" [ngSwitch]=\"aba\">\n  <p *ngSwitchCase=\"'relatorio'\">relatorio</p>\n</div>\n<!--cadastro de produtos!-->\n<form [ngSwitch]=\"aba\" >\n  <section class=\"two-way-binding\">\n  <!--Cadastro de Produtos-->\n    <div class=\"form-row\" *ngSwitchCase=\"'cadastroProd'\">\n        <div class=\"col-md-4 mb-3\">\n          <label for=\"validationServer01\">Produto</label>\n          <input type=\"text\" class=\"form-control is-valid\" id=\"DescProd\" name=\"DescProd\" [(ngModel)]=\"DescProd\" required>\n          <div class=\"valid-feedback\">\n            Digite o nome do produto a ser cadastrado.\n          </div>\n          <div class=\"form-group\">\n              <select ng-model=\"buscarCategoria\" name=\"buscarCategoria\" id=\"buscarCategoria\" class=\"custom-select\" required>\n                  <option *ngFor=\"let busca of categorias\" [value]=\"busca.NomeCat\">{{busca.NomeCat}}</option>\n              </select>\n            </div>\n            <div>\n              <button class=\"btn btn-success\" type=\"submit\" (click)=\"cadastrarProduto(DescProd, IdCat);\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Cadastra um Produto no banco de dados\">Cadastrar Produto</button>\n            </div>\n        </div>\n      </div>\n      <!--Cadastro de Categorias-->\n    <div class=\"form-row\" *ngSwitchCase=\"'cadastroCat'\">\n      <div class=\"col-md-4 mb-3\">\n        <label for=\"validationServer01\">Categoria</label>\n        <input class=\"form-control is-valid\" type=\"text\" id=\"NomeCat\" name=\"NomeCat\" [(ngModel)]=\"NomeCat\" required>\n        <div class=\"valid-feedback\">\n          Digite a Categoria a ser cadastrada.\n        </div>\n          <div>\n            <button class=\"btn btn-success\" type=\"submit\" (click)=\"cadastrarCategoria(NomeCat);\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Cadastra uma Categoria no banco de dados\">Cadastrar Categoria</button>\n          </div>\n      </div>\n    </div>\n\n    <!--Mostra minha apresentação!-->\n    <div class=\"card text-center\"  *ngSwitchCase=\"'home'\">\n      <!--img class=\"card-img-top\" src=\"\\assets\\igor.jpg\" alt=\"Card image cap\"!-->\n      <div class=\"card-body\">\n        <h5 class=\"card-title\">Igor Alexandre Saraiva Silva</h5>\n        <p class=\"card-text\">This is the realization of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>\n        <a href=\"https://www.linkedin.com/in/igoralexandre/\" class=\"btn-outline-info\">Linkedin</a>\n      </div>\n    </div>\n  </section>\n  </form>\n\n"
 
 /***/ }),
 
@@ -309,12 +319,17 @@ var WebApiComponent = /** @class */ (function () {
         this.service = service;
         // tslint:disable-next-line:no-inferrable-types
         this.aba = 'home';
+        this.buscarCategoria();
     }
     WebApiComponent.prototype.cadastrarCategoria = function () {
         this.service.cadastraCategoria(this.NomeCat).subscribe(function (retorno) { return alert(retorno); });
     };
     WebApiComponent.prototype.cadastrarProduto = function () {
         this.service.cadastraProduto(this.DescProd, this.IdCat);
+    };
+    WebApiComponent.prototype.buscarCategoria = function () {
+        var _this = this;
+        this.service.buscaCategoria(this.IdCat, this.NomeCat).subscribe(function (retorno) { return _this.categorias = retorno; });
     };
     WebApiComponent.prototype.ngOnInit = function () {
     };
