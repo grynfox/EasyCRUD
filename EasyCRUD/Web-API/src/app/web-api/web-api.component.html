@@ -21,17 +21,18 @@
     <div class="form-row" *ngSwitchCase="'cadastroProd'">
         <div class="col-md-4 mb-3">
           <label for="validationServer01">Produto</label>
-          <input type="text" class="form-control is-valid" id="DescProd" name="DescProd" [(ngModel)]="DescProd" required>
+          <input type="text" class="form-control is-valid" id="NomeProd" name="NomeProd" [(ngModel)]="NomeProd" required>
           <div class="valid-feedback">
             Digite o nome do produto a ser cadastrado.
           </div>
           <div class="form-group">
-              <select ng-model="buscarCategoria" name="buscarCategoria" id="buscarCategoria" class="custom-select" required>
-                  <option *ngFor="let busca of categorias" [value]="busca.NomeCat">{{busca.NomeCat}}</option>
+            <pre>{{IdCat}}</pre>
+              <select [(ngModel)]="IdCat"class="custom-select" required>
+                  <option *ngFor="let busca of categorias" [value]="busca.IdCat">{{busca.IdCat}} | {{busca.NomeCat}}</option>
               </select>
             </div>
             <div>
-              <button class="btn btn-success" type="submit" (click)="cadastrarProduto(DescProd, IdCat);" data-toggle="tooltip" data-placement="top" title="Cadastra um Produto no banco de dados">Cadastrar Produto</button>
+              <button class="btn btn-success" type="submit" (click)="cadastrarProduto(NomeProd, IdCat);" data-toggle="tooltip" data-placement="top" title="Cadastra um Produto no banco de dados">Cadastrar Produto</button>
             </div>
         </div>
       </div>

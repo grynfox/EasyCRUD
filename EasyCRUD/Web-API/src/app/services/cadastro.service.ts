@@ -26,8 +26,8 @@ export class CadastroService extends HttpHelper {
   return result;
   }
 
-  cadastraProduto(descProdParam: string, idCatParam: Number) {
-    let result = this.postaction(this._cadastraProduto, { DescProd: descProdParam, IdCat: idCatParam}).map(
+  cadastraProduto(nomeProdParam: string, idCatParam: Number) {
+    let result = this.postaction(this._cadastraProduto, { NomeProd: nomeProdParam, IdCat: idCatParam}).map(
       // tslint:disable-next-line:no-shadowed-variable
       result => {
 

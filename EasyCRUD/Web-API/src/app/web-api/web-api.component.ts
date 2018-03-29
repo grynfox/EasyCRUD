@@ -14,7 +14,7 @@ export class WebApiComponent implements OnInit {
 // tslint:disable-next-line:no-inferrable-types
 aba: string = 'home';
 NomeCat: string;
-DescProd: string;
+NomeProd: string;
 IdCat: number;
 categorias: any[];
 
@@ -25,9 +25,8 @@ categorias: any[];
      this.service.cadastraCategoria(this.NomeCat).subscribe(retorno => alert(retorno));
    }
    cadastrarProduto() {
-    this.service.cadastraProduto(this.DescProd, this.IdCat);
-
-   }
+    this.service.cadastraProduto(this.NomeProd, this.IdCat).subscribe(retorno => alert(retorno));
+     }
    buscarCategoria() {
     this.service.buscaCategoria(this.IdCat, this.NomeCat).subscribe(retorno => this.categorias = retorno);
 
