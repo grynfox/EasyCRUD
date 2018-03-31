@@ -36,7 +36,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item"  (click)="aba= 'reports'">Produtos Cadastrados</a>
                   <a class="dropdown-item" (click)="aba= 'reports'">Produtos por Categoria</a>
-                  <a class="dropdown-item" (click)="aba= 'reports'">Categorias Cadastradas</a>
+                  <a class="dropdown-item" (click)="aba= 'reportCat'">Categorias Cadastradas</a>
                 </div>
               </div>
         </ul>
@@ -170,64 +170,47 @@
                   </div>
                 </div>
               </div>
+<!--Relatorios!-->
+<div class="container" *ngSwitchCase="'reportCat'">
+    <div class="card card-register mx-auto mt-5">
+      <div class="card-header text-center">Relatorio</div>
+      <div class="card-body">
+        <form>
+          <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Codigo Categoria</th>
+                    <th>Categoria</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let busca of categorias">
+                    <td> {{busca.IdCat}} </td>
+                    <td>{{busca.NomeCat}}</td>
+                  </tr>
+                </tbody>
+                </table>
+                </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
     <section class="two-way-binding">
-        <!--Cadastro de Categorias-->
           <div class="col-lg-12 menu-fixed" *ngSwitchCase="'home'">
-              <!-- Example Bar Chart Card-->
               <div class="card text-center">
                 <div class="card-header">
                   <i class="fa fa-bar-chart"></i> CRUD</div>
                 <div class="card-body">
                     <h5 class="card-title">Igor Alexandre Saraiva Silva</h5>
-                    <p class="card-text">This is the realization of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>
+                    <p class="card-text">This is the implementation of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>
                 </div>
                 <div class="card-footer small text-muted">
                   <a href="https://www.linkedin.com/in/igoralexandre/" class="btn-outline-info">Linkedin</a>
                 </div>
               </div>
             </div>
-            <div class="container" *ngSwitchCase="'home'">
-                <div class="card card-register mx-auto mt-5">
-                  <div class="card-header">Register an Account</div>
-                  <div class="card-body">
-                    <form>
-                      <div class="form-group">
-                        <div class="form-row">
-                          <div class="col-md-6">
-                            <label for="exampleInputName">First name</label>
-                            <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name">
-                          </div>
-                          <div class="col-md-6">
-                            <label for="exampleInputLastName">Last name</label>
-                            <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Enter last name">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
-                      </div>
-                      <div class="form-group">
-                        <div class="form-row">
-                          <div class="col-md-6">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
-                          </div>
-                          <div class="col-md-6">
-                            <label for="exampleConfirmPassword">Confirm password</label>
-                            <input class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password">
-                          </div>
-                        </div>
-                      </div>
-                      <a class="btn btn-primary btn-block" href="login.html">Register</a>
-                    </form>
-                    <div class="text-center">
-                      <a class="d-block small mt-3" href="login.html">Login Page</a>
-                      <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
     </section>
     </form>
 
