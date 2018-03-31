@@ -17,10 +17,6 @@ namespace EasyCRUD.API
         }
 
         public void CadastraProduto([FromBody] Produto value)
-
-
-
-
         {
             Produto prod = new Produto();
             prod = value;

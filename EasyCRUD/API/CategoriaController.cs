@@ -16,7 +16,7 @@ namespace EasyCRUD.API
         {
             this.banco = new BancoContext();
         }
-
+        [System.Web.Http.HttpPost]
         public void CadastraCategoria([FromBody] Categoria value)
         {
             Categoria cat = new Categoria();
@@ -31,12 +31,20 @@ namespace EasyCRUD.API
         {
             return this.banco.Categoria.ToList();
         }
+        [System.Web.Http.HttpPut]
+        public IHttpActionResult AlteraCat(int IdCat, [FromBody] Categoria value) {
+            var altCat = banco.Categoria.Where(linha => linha.IdCat == IdCat).FirstOrDefault();
+
+            banco.SaveChanges();
+            return this.Ok("Alterado");
+        }
+        [System.Web.Http.HttpDelete]
         public IHttpActionResult ApagaCat(int IdCat)
         {
             var apagaCat = banco.Categoria.FirstOrDefault(linha => linha.IdCat == IdCat);
             banco.Categoria.Remove(apagaCat);
             banco.SaveChanges();
-            return this.Ok("Deletado");
+            return null;
         }
     }
 }

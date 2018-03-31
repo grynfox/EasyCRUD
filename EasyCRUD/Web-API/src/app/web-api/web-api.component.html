@@ -1,64 +1,238 @@
-<div class="navbar navbar-dark navbar-expand-lg bg-dark">
-    <form class="form-inline">
-      <button type="button" class="btn btn-outline-success"
-  (click)="aba= 'home'">Easy </button>
-  <button class="btn btn-sm btn-outline-secondary " (click)="aba= 'cadastroProd'"
-   type="button">Product Registration</button>
-    <button class="btn btn-sm btn-outline-secondary "(click)="aba= 'cadastroCat'"
-     type="button">Category Registration</button>
-    <button class="btn btn-sm btn-outline-secondary "(click)="aba= 'relatorio'" type="button">
-     Reports</button>
-    </form>
-  </div>
 
-<div class="container" [ngSwitch]="aba">
-  <p *ngSwitchCase="'relatorio'">relatorio</p>
-</div>
-<!--cadastro de produtos!-->
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
+      <a class="navbar-brand text-white bg-dark" (click)="aba= 'home'">Easy CRUD</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+      data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggngler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+
+          <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Product
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item"  (click)="aba= 'cadastroProd'">Cadastro de Produto</a>
+                <a class="dropdown-item" (click)="aba= 'altProd'" >Alterar Produto</a>
+                <a class="dropdown-item" (click)="aba= 'delProd'">Excluir Produto</a>
+              </div>
+            </div>
+          <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Category
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item"  (click)="aba= 'cadastroCat'">Cadastro de Categoria</a>
+                <a class="dropdown-item" (click)="aba= 'altCat'">Alterar Categoria</a>
+                <a class="dropdown-item" (click)="aba= 'delCat'">Exclusão de Categoria</a>
+              </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reports
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item"  (click)="aba= 'reports'">Produtos Cadastrados</a>
+                  <a class="dropdown-item" (click)="aba= 'reports'">Produtos por Categoria</a>
+                  <a class="dropdown-item" (click)="aba= 'reports'">Categorias Cadastradas</a>
+                </div>
+              </div>
+        </ul>
+      </div>
+    </nav>
+
+</body>
+
+
+
+
 <form [ngSwitch]="aba" >
-  <section class="two-way-binding">
-  <!--Cadastro de Produtos-->
-    <div class="form-row" *ngSwitchCase="'cadastroProd'">
-        <div class="col-md-4 mb-3">
-          <label for="validationServer01">Produto</label>
-          <input type="text" class="form-control is-valid" id="NomeProd" name="NomeProd" [(ngModel)]="NomeProd" required>
-          <div class="valid-feedback">
-            Digite o nome do produto a ser cadastrado.
+      <!--Produtos-->
+    <div class="container" *ngSwitchCase="'cadastroProd'">
+        <div class="card card-register mx-auto mt-5">
+          <div class="card-header text-center">Cadastra Produto</div>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-12">
+                    <label for="NomeProd">Produto</label>
+                    <input class="form-control" id="NomeProd" name="NomeProd" type="text" placeholder="Digite o nome do produto"[(ngModel)]="NomeProd" required>
+                  </div>
+                </div>
+              </div>
+              <label for="categorias">Selecione a categoria</label>
+              <div class="form-group col align-self-center">
+                  <select [(ngModel)]="IdCat" class="custom-select"  name="categorias">
+                      <option *ngFor="let busca of categorias" [value]="busca.IdCat">{{busca.IdCat}} | {{busca.NomeCat}}</option>
+                  </select>
+              </div>
+              <a class="btn btn-primary btn-block" (click)="cadastrarProduto(NomeProd, IdCat);">Cadastrar Produto</a>
+            </form>
           </div>
-          <div class="form-group">
-            <pre>{{IdCat}}</pre>
-              <select [(ngModel)]="IdCat"class="custom-select" required>
-                  <option *ngFor="let busca of categorias" [value]="busca.IdCat">{{busca.IdCat}} | {{busca.NomeCat}}</option>
-              </select>
-            </div>
-            <div>
-              <button class="btn btn-success" type="submit" (click)="cadastrarProduto(NomeProd, IdCat);" data-toggle="tooltip" data-placement="top" title="Cadastra um Produto no banco de dados">Cadastrar Produto</button>
-            </div>
         </div>
       </div>
-      <!--Cadastro de Categorias-->
-    <div class="form-row" *ngSwitchCase="'cadastroCat'">
-      <div class="col-md-4 mb-3">
-        <label for="validationServer01">Categoria</label>
-        <input class="form-control is-valid" type="text" id="NomeCat" name="NomeCat" [(ngModel)]="NomeCat" required>
-        <div class="valid-feedback">
-          Digite a Categoria a ser cadastrada.
-        </div>
-          <div>
-            <button class="btn btn-success" type="submit" (click)="cadastrarCategoria(NomeCat);" data-toggle="tooltip" data-placement="top" title="Cadastra uma Categoria no banco de dados">Cadastrar Categoria</button>
+      <div class="container" *ngSwitchCase="'altProd'">
+          <div class="card card-register mx-auto mt-5">
+            <div class="card-header text-center">Alterar Produto</div>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <label for="NomeProd">Produto</label>
+                      <input class="form-control" id="NomeProd" name="NomeProd" type="text" placeholder="Digite o novo nome do produto" [(ngModel)]="NomeProd" required>
+                    </div>
+                  </div>
+                </div>
+                <label for="categorias">Selecione o Produto que será alterado</label>
+                <div class="form-group">
+                    <select [(ngModel)]="NomeProd" class="custom-select"  name="produtos">
+                        <option *ngFor="let buscaProd of produtos" [value]="buscaProd.IdProd">{{buscaProd.IdProd}} | {{buscaProd.NomeProd}}</option>
+                    </select>
+                  </div>
+                <a class="btn btn-primary btn-block" (click)="cadastrarProduto(NomeProd, IdCat);">Alterar Produto</a>
+              </form>
+            </div>
           </div>
-      </div>
-    </div>
+        </div>
+        <!--Categorias !-->
+        <div class="container" *ngSwitchCase="'cadastroCat'">
+            <div class="card card-register mx-auto mt-5">
+              <div class="card-header text-center">Cadastra Categoria</div>
+              <div class="card-body">
+                <form>
+                  <div class="form-group">
+                    <div class="form-row">
+                      <div class="col-md-12">
+                        <label for="NomeProd">Categoria</label>
+                        <input class="form-control" id="NomeCat" name="NomeCat" type="text" placeholder="Digite o nome da categoria"[(ngModel)]="NomeCat" required>
+                      </div>
+                    </div>
+                  </div>
+                  <a class="btn btn-primary btn-block" (click)="cadastrarCategoria(NomeCat);">Cadastrar Categoria</a>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="container" *ngSwitchCase="'delCat'">
+              <div class="card card-register mx-auto mt-5">
+                <div class="card-header text-center">Deleta Categoria</div>
+                <div class="card-body">
+                  <form>
+                    <div class="form-group">
+                      <div class="form-row">
+                        <div class="col-md-12">
+                          <label for="NomeProd">Categoria</label>
+                            <div class="form-group">
+                              <select [(ngModel)]="IdCat" class="custom-select"  name="categorias">
+                                  <option *ngFor="let busca of categorias" [value]="busca.IdCat">{{busca.IdCat}} | {{busca.NomeCat}}</option>
+                              </select>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="btn btn-primary btn-block" (click)="apagarCat(IdCat);">Deletar Categoria</a>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!--NAO FUNFA!-->
+            <div class="container" *ngSwitchCase="'altCat'">
+                <div class="card card-register mx-auto mt-5">
+                  <div class="card-header text-center">Alterar Categoria</div>
+                  <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <div class="form-row">
+                              <div class="col-md-12">
+                                <label for="NomeProd">Categoria</label>
+                                <input class="form-control" id="NomeCat" name="NomeCat" type="text" placeholder="Digite o nome da categoria"[(ngModel)]="NomeCat" required>
+                              </div>
+                            </div>
+                          </div>
+                      <div class="form-group">
+                        <div class="form-row">
+                          <div class="col-md-12">
+                            <label for="NomeProd">Antiga Categoria</label>
+                              <div class="form-group">
+                                <select [(ngModel)]="IdCat" class="custom-select"  name="categorias">
+                                    <option *ngFor="let busca of categorias" [value]="busca.IdCat">{{busca.IdCat}} | {{busca.NomeCat}}</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a class="btn btn-primary btn-block" (click)="alterarCat(IdCat, NomeCat);">Alterar Categoria</a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+    <section class="two-way-binding">
+        <!--Cadastro de Categorias-->
+          <div class="col-lg-12 menu-fixed" *ngSwitchCase="'home'">
+              <!-- Example Bar Chart Card-->
+              <div class="card text-center">
+                <div class="card-header">
+                  <i class="fa fa-bar-chart"></i> CRUD</div>
+                <div class="card-body">
+                    <h5 class="card-title">Igor Alexandre Saraiva Silva</h5>
+                    <p class="card-text">This is the realization of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>
+                </div>
+                <div class="card-footer small text-muted">
+                  <a href="https://www.linkedin.com/in/igoralexandre/" class="btn-outline-info">Linkedin</a>
+                </div>
+              </div>
+            </div>
+            <div class="container" *ngSwitchCase="'home'">
+                <div class="card card-register mx-auto mt-5">
+                  <div class="card-header">Register an Account</div>
+                  <div class="card-body">
+                    <form>
+                      <div class="form-group">
+                        <div class="form-row">
+                          <div class="col-md-6">
+                            <label for="exampleInputName">First name</label>
+                            <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="exampleInputLastName">Last name</label>
+                            <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Enter last name">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+                      </div>
+                      <div class="form-group">
+                        <div class="form-row">
+                          <div class="col-md-6">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="exampleConfirmPassword">Confirm password</label>
+                            <input class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password">
+                          </div>
+                        </div>
+                      </div>
+                      <a class="btn btn-primary btn-block" href="login.html">Register</a>
+                    </form>
+                    <div class="text-center">
+                      <a class="d-block small mt-3" href="login.html">Login Page</a>
+                      <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    </section>
+    </form>
 
-    <!--Mostra minha apresentação!-->
-    <div class="card text-center"  *ngSwitchCase="'home'">
-      <!--img class="card-img-top" src="\assets\igor.jpg" alt="Card image cap"!-->
-      <div class="card-body">
-        <h5 class="card-title">Igor Alexandre Saraiva Silva</h5>
-        <p class="card-text">This is the realization of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>
-        <a href="https://www.linkedin.com/in/igoralexandre/" class="btn-outline-info">Linkedin</a>
-      </div>
-    </div>
-  </section>
-  </form>
-
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>

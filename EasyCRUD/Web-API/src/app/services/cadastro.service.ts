@@ -10,6 +10,9 @@ export class CadastroService extends HttpHelper {
   private _cadastraCategoria = 'Categoria/CadastraCategoria';
   private _cadastraProduto = 'Produto/CadastraProduto';
   private _buscaCategoria = 'Categoria/GetCategoria';
+  private _buscaProdutos = 'Produto/GetProdutos';
+  private _delCat = 'Categoria/apagaCat';
+  private _altCat= 'Categoria/AlteraCat';
 
   constructor( http: Http) {
     super(http);
@@ -31,14 +34,48 @@ export class CadastroService extends HttpHelper {
       // tslint:disable-next-line:no-shadowed-variable
       result => {
 
-          let produto = <any>result;
-          return produto;
+          let busca = <any>result;
+          return busca;
+      }
+  ).catch(err => { return Observable.throw(err || 'Server error'); });
+  return result;
+  }
+  alteraCat( idCatParam: Number, nomeCatParam: string) {
+    let result = this.putaction(this._altCat, { IdCat: idCatParam, NomeCat: nomeCatParam, }).map(
+      // tslint:disable-next-line:no-shadowed-variable
+      result => {
+
+          let busca = <any>result;
+          return busca;
       }
   ).catch(err => { return Observable.throw(err || 'Server error'); });
   return result;
   }
   buscaCategoria(idCatParam: Number, nomeCatParam: string ) {
     let result = this.getaction(this._buscaCategoria, { NomeCat: nomeCatParam, IdCat: idCatParam}).map(
+      // tslint:disable-next-line:no-shadowed-variable
+      result => {
+
+          let busca = <any>result;
+          return busca;
+      }
+  ).catch(err => { return Observable.throw(err || 'Server error'); });
+  return result;
+  }
+  buscaProduto(nomeProdParam: string ) {
+    let result = this.getaction(this._buscaProdutos, { NomeProd: nomeProdParam }).map(
+      // tslint:disable-next-line:no-shadowed-variable
+      result => {
+
+          let busca = <any>result;
+          return busca;
+      }
+  ).catch(err => { return Observable.throw(err || 'Server error'); });
+  return result;
+  }
+
+  apagaCat(idCatParam: number ) {
+    let result = this.deleteaction(this._delCat, { IdCat: idCatParam }).map(
       // tslint:disable-next-line:no-shadowed-variable
       result => {
 
