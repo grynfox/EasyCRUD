@@ -62,8 +62,9 @@ export class CadastroService extends HttpHelper {
   ).catch(err => { return Observable.throw(err || 'Server error'); });
   return result;
   }
-  buscaProduto(nomeProdParam: string ) {
-    let result = this.getaction(this._buscaProdutos, { NomeProd: nomeProdParam }).map(
+  buscaProduto(idProdParam: number, nomeProdParam: string, idCatParam: number, nomeCatParam: string   ) {
+    let result = this.getaction(this._buscaProdutos,
+      { IdProd: idProdParam, NomeProd: nomeProdParam, IdCat: idCatParam}).map(
       // tslint:disable-next-line:no-shadowed-variable
       result => {
 

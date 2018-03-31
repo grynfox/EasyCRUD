@@ -34,7 +34,7 @@
                     Reports
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item"  (click)="aba= 'reports'">Produtos Cadastrados</a>
+                  <a class="dropdown-item"  (click)="aba= 'reportProd'">Produtos Cadastrados</a>
                   <a class="dropdown-item" (click)="aba= 'reports'">Produtos por Categoria</a>
                   <a class="dropdown-item" (click)="aba= 'reportCat'">Categorias Cadastradas</a>
                 </div>
@@ -196,6 +196,33 @@
       </div>
     </div>
   </div>
+  <div class="container" *ngSwitchCase="'reportProd'">
+      <div class="card card-register mx-auto mt-5">
+        <div class="card-header text-center">Relatorio</div>
+        <div class="card-body">
+          <form>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Codigo Produto</th>
+                      <th>Produto</th>
+                      <th>Categoria</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let busca of produtos">
+                      <td> {{busca.IdProd}} </td>
+                      <td>{{busca.NomeProd}}</td>
+                      <td>{{busca.IdCat}}</td>
+                    </tr>
+                  </tbody>
+                  </table>
+                  </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
     <section class="two-way-binding">
           <div class="col-lg-12 menu-fixed" *ngSwitchCase="'home'">

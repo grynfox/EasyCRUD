@@ -23,6 +23,7 @@ show: boolean;
 
   constructor(private service: CadastroService) {
     this.buscarCategoria();
+    this.buscarProdutos();
    }
 
    cadastrarCategoria() {
@@ -40,7 +41,7 @@ show: boolean;
 
    }
    buscarProdutos() {
-    this.service.buscaProduto(this.NomeProd).subscribe(retorno => this.produtos = retorno);
+    this.service.buscaProduto(this.IdProd, this.NomeProd, this.IdCat, this.NomeCat).subscribe(retorno => this.produtos = retorno);
 
    }
    apagarCat() {
