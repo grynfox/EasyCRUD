@@ -112,7 +112,7 @@
                         <label for="produtos">Selecione o Produto</label>
                           <div class="form-group">
                             <select class="custom-select"  [(ngModel)]="IdProd" name="produtos">
-                                <option *ngFor="let busca of produtos" [value]="busca.IdProd">{{busca.IdProd}} | {{busca.NomeProd}}</option>
+                                <option *ngFor="let busca of produtos" [value]="busca.IdProd">{{busca.NomeProd}}</option>
                             </select>
                           </div>
                       </div>
@@ -197,7 +197,7 @@
 <!--Relatorios!-->
 <div class="container" *ngSwitchCase="'reportCat'">
     <div class="card card-register mx-auto mt-5">
-      <div class="card-header text-center">Relatorio</div>
+      <div class="card-header text-center">Relatorio de Categorias Cadastradas</div>
       <div class="card-body">
         <form>
           <div class="table-responsive">
@@ -222,7 +222,7 @@
   </div>
   <div class="container" *ngSwitchCase="'reportProd'">
       <div class="card card-register mx-auto mt-5">
-        <div class="card-header text-center">Relatorio</div>
+        <div class="card-header text-center">Relatorio de Produtos Cadastrados</div>
         <div class="card-body">
           <form>
             <div class="table-responsive">

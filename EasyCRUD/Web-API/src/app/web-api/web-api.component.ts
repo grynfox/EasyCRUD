@@ -4,7 +4,7 @@ import { Component, OnInit } from "@angular/core";
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import "rxjs/add/operator/map";
 import { Http } from "@angular/http";
-import { Observable } from "rxjs/Observable";
+ import { Observable } from "rxjs/Observable";
 import { NgModel } from "@angular/forms";
 @Component({
   selector: "app-web-api",
@@ -26,7 +26,7 @@ export class WebApiComponent implements OnInit {
   constructor(private service: CadastroService) {
     this.buscarCategoria();
     this.buscarProdutos();
-    this.reportsProdCat();
+
   }
 
   cadastrarCategoria() {
