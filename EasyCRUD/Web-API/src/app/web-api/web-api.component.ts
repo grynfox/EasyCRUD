@@ -1,3 +1,4 @@
+// tslint:disable:quotemark
 import { CadastroService } from "./../services/cadastro.service";
 import { Component, OnInit } from "@angular/core";
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -43,6 +44,13 @@ export class WebApiComponent implements OnInit {
     this.service
       .alteraCat(this.IdCat, this.NomeCat)
       .subscribe(retorno => alert(retorno));
+      this.buscarCategoria();
+  }
+  alterarProd() {
+    this.service
+      .alteraProd(this.IdProd, this.NomeProd)
+      .subscribe(retorno => alert(retorno));
+      this.buscarProdutos();
   }
   buscarCategoria() {
     this.service
@@ -58,6 +66,7 @@ export class WebApiComponent implements OnInit {
     this.service
       .apagaCat(this.IdCat)
       .subscribe(retorno => (this.categorias = retorno));
+      this.buscarCategoria();
   }
   apagarProd() {
     this.service.apagaProd(this.IdProd).subscribe(retorno => {

@@ -29,13 +29,21 @@ namespace EasyCRUD.API
             return this.banco.Produto.ToList()
 ;
         }
+        [System.Web.Http.HttpPut]
+        public IHttpActionResult AlteraProd(int IdProd, [FromBody] Produto value)
+        {
+            var altProd = banco.Produto.Where(linha => linha.IdProd == IdProd).FirstOrDefault();
+            altProd.NomeProd = value.NomeProd;
+            banco.SaveChanges();
+            return this.Ok("Produto Alterado");
+        }
         [System.Web.Http.HttpDelete]
         public IHttpActionResult ApagaProd(int IdProd)
         {
             var apagaProd = banco.Produto.FirstOrDefault(linha => linha.IdProd == IdProd);
             banco.Produto.Remove(apagaProd);
             banco.SaveChanges();
-            return this.Ok();
+            return this.Ok("Apagado");
         }
 
     }

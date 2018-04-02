@@ -34,7 +34,7 @@ namespace EasyCRUD.API
         [System.Web.Http.HttpPut]
         public IHttpActionResult AlteraCat(int IdCat, [FromBody] Categoria value) {
             var altCat = banco.Categoria.Where(linha => linha.IdCat == IdCat).FirstOrDefault();
-
+            altCat.NomeCat = value.NomeCat;
             banco.SaveChanges();
             return this.Ok("Alterado");
         }

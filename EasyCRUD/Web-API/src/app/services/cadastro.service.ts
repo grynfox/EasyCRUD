@@ -13,6 +13,7 @@ export class CadastroService extends HttpHelper {
   private _buscaProdutos = 'Produto/GetProdutos';
   private _delCat = 'Categoria/apagaCat';
   private _altCat = 'Categoria/AlteraCat';
+  private _altProd = 'Produto/AlteraProd';
   private _delProd = 'Produto/ApagaProd';
   private _reportProdCat = 'Reports/GetProdCat';
 
@@ -43,7 +44,18 @@ export class CadastroService extends HttpHelper {
   return result;
   }
   alteraCat( idCatParam: Number, nomeCatParam: string) {
-    let result = this.putaction(this._altCat, { IdCat: idCatParam, NomeCat: nomeCatParam, }).map(
+    let result = this.putaction(this._altCat + `?idCat=${idCatParam}`, { NomeCat: nomeCatParam, }).map(
+      // tslint:disable-next-line:no-shadowed-variable
+      result => {
+
+          let busca = <any>result;
+          return busca;
+      }
+  ).catch(err => { return Observable.throw(err || 'Server error'); });
+  return result;
+  }
+  alteraProd( idProdParam: Number, nomeProdParam: string) {
+    let result = this.putaction(this._altProd + `?IdProd=${idProdParam}`, { NomeProd: nomeProdParam, }).map(
       // tslint:disable-next-line:no-shadowed-variable
       result => {
 
