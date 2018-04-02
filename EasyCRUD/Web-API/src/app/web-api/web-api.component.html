@@ -35,7 +35,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item"  (click)="aba= 'reportProd'">Produtos Cadastrados</a>
-                  <a class="dropdown-item" (click)="aba= 'reports'">Produtos por Categoria</a>
+                  <a class="dropdown-item" (click)="aba= 'reportProdCat'">Produtos por Categoria</a>
                   <a class="dropdown-item" (click)="aba= 'reportCat'">Categorias Cadastradas</a>
                 </div>
               </div>
@@ -98,6 +98,28 @@
             </div>
           </div>
         </div>
+        <div class="container" *ngSwitchCase="'delProd'">
+          <div class="card card-register mx-auto mt-5">
+            <div class="card-header text-center">Deleta Produto</div>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <label for="produtos">Produto</label>
+                        <div class="form-group">
+                          <select [(ngModel)]="IdProd" class="custom-select"  name="produtos">
+                            <option *ngFor="let buscaProd of produtos" [value]="buscaProd.IdProd">{{buscaProd.IdProd}} | {{buscaProd.NomeProd}}</option>
+                        </select>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <a class="btn btn-primary btn-block" (click)="apagarProd(IdProd);">Deletar Produto</a>
+              </form>
+            </div>
+          </div>
+        </div>
         <!--Categorias !-->
         <div class="container" *ngSwitchCase="'cadastroCat'">
             <div class="card card-register mx-auto mt-5">
@@ -107,7 +129,7 @@
                   <div class="form-group">
                     <div class="form-row">
                       <div class="col-md-12">
-                        <label for="NomeProd">Categoria</label>
+                        <label for="NomeCat">Categoria</label>
                         <input class="form-control" id="NomeCat" name="NomeCat" type="text" placeholder="Digite o nome da categoria"[(ngModel)]="NomeCat" required>
                       </div>
                     </div>
@@ -125,7 +147,7 @@
                     <div class="form-group">
                       <div class="form-row">
                         <div class="col-md-12">
-                          <label for="NomeProd">Categoria</label>
+                          <label for="categorias">Categoria</label>
                             <div class="form-group">
                               <select [(ngModel)]="IdCat" class="custom-select"  name="categorias">
                                   <option *ngFor="let busca of categorias" [value]="busca.IdCat">{{busca.IdCat}} | {{busca.NomeCat}}</option>
@@ -148,7 +170,7 @@
                         <div class="form-group">
                             <div class="form-row">
                               <div class="col-md-12">
-                                <label for="NomeProd">Categoria</label>
+                                <label for="NomeCat">Categoria</label>
                                 <input class="form-control" id="NomeCat" name="NomeCat" type="text" placeholder="Digite o nome da categoria"[(ngModel)]="NomeCat" required>
                               </div>
                             </div>
@@ -159,7 +181,7 @@
                             <label for="NomeProd">Antiga Categoria</label>
                               <div class="form-group">
                                 <select [(ngModel)]="IdCat" class="custom-select"  name="categorias">
-                                    <option *ngFor="let busca of categorias" [value]="busca.IdCat">{{busca.IdCat}} | {{busca.NomeCat}}</option>
+                                    <option *ngFor="let busca of categorias" [value]="busca.NomeCat">{{busca.IdCat}} | {{busca.NomeCat}}</option>
                                 </select>
                               </div>
                           </div>
@@ -212,7 +234,7 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let busca of produtos">
-                      <td> {{busca.IdProd}} </td>
+                      <td>{{busca.IdProd}} </td>
                       <td>{{busca.NomeProd}}</td>
                       <td>{{busca.IdCat}}</td>
                     </tr>
@@ -223,26 +245,55 @@
         </div>
       </div>
     </div>
-
-    <section class="two-way-binding">
-          <div class="col-lg-12 menu-fixed" *ngSwitchCase="'home'">
-              <div class="card text-center">
-                <div class="card-header">
-                  <i class="fa fa-bar-chart"></i> CRUD</div>
-                <div class="card-body">
-                    <h5 class="card-title">Igor Alexandre Saraiva Silva</h5>
-                    <p class="card-text">This is the implementation of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>
-                </div>
-                <div class="card-footer small text-muted">
-                  <a href="https://www.linkedin.com/in/igoralexandre/" class="btn-outline-info">Linkedin</a>
+    <div class="container" *ngSwitchCase="'reportProdCat'">
+      <div class="card card-register mx-auto mt-5">
+        <div class="card-header text-center">Relatorio de Produtos Por Categoria</div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="col-md-12">
+                  <label for="categorias">Selecione a Categoria</label>
+                    <div class="form-group">
+                      <select [(ngModel)]="IdCat" class="custom-select"  name="categorias">
+                          <option *ngFor="let busca of categorias" [value]="busca.IdCat">{{busca.IdCat}} | {{busca.NomeCat}}</option>
+                      </select>
+                    </div>
                 </div>
               </div>
-            </div>
-    </section>
+              <a class="btn btn-primary btn-block" (click)="reportsProdCat(IdCat);">Gerar Relatorio</a>
+          <form>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Codigo Produto</th>
+                      <th>Produto</th>
+                      <th>Categoria</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let busca of relatorios">
+                      <td>{{busca.IdProd}} </td>
+                      <td>{{busca.NomeProd}}</td>
+                      <td>{{busca.IdCat}}</td>
+                    </tr>
+                  </tbody>
+                  </table>
+                  </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 menu-fixed" *ngSwitchCase="'home'">
+      <div class="card text-center">
+        <div class="card-header">
+          <i class="fa fa-bar-chart"></i> CRUD</div>
+        <div class="card-body">
+            <h5 class="card-title">Igor Alexandre Saraiva Silva</h5>
+            <p class="card-text">This is the implementation of a simple CRUD. I'm using ASP.NET + Angular 5 with bootstrap and Entity Framework </p>
+        </div>
+        <div class="card-footer small text-muted">
+          <a href="https://www.linkedin.com/in/igoralexandre/" class="btn-outline-info">Linkedin</a>
+        </div>
+      </div>
+    </div>
     </form>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>

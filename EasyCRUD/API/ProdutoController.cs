@@ -35,7 +35,7 @@ namespace EasyCRUD.API
             var apagaProd = banco.Produto.FirstOrDefault(linha => linha.IdProd == IdProd);
             banco.Produto.Remove(apagaProd);
             banco.SaveChanges();
-            return this.Ok("Deletado");
+            return this.Ok();
         }
 
     }

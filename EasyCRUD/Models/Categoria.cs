@@ -11,5 +11,7 @@ namespace EasyCRUD.Models
         [Key]
         public int IdCat { get; set; }
         public string NomeCat { get; set; }
+
+        public virtual IEnumerable<Produto> Produtos { get; set; }
     }
 }

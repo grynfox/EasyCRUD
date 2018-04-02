@@ -12,7 +12,9 @@ export class CadastroService extends HttpHelper {
   private _buscaCategoria = 'Categoria/GetCategoria';
   private _buscaProdutos = 'Produto/GetProdutos';
   private _delCat = 'Categoria/apagaCat';
-  private _altCat= 'Categoria/AlteraCat';
+  private _altCat = 'Categoria/AlteraCat';
+  private _delProd = 'Produto/ApagaProd';
+  private _reportProdCat = 'Reports/GetProdCat';
 
   constructor( http: Http) {
     super(http);
@@ -62,7 +64,7 @@ export class CadastroService extends HttpHelper {
   ).catch(err => { return Observable.throw(err || 'Server error'); });
   return result;
   }
-  buscaProduto(idProdParam: number, nomeProdParam: string, idCatParam: number, nomeCatParam: string   ) {
+  buscaProduto(idProdParam: number, nomeProdParam: string, idCatParam: number) {
     let result = this.getaction(this._buscaProdutos,
       { IdProd: idProdParam, NomeProd: nomeProdParam, IdCat: idCatParam}).map(
       // tslint:disable-next-line:no-shadowed-variable
@@ -77,6 +79,30 @@ export class CadastroService extends HttpHelper {
 
   apagaCat(idCatParam: number ) {
     let result = this.deleteaction(this._delCat, { IdCat: idCatParam }).map(
+      // tslint:disable-next-line:no-shadowed-variable
+      result => {
+
+          let busca = <any>result;
+          return busca;
+      }
+  ).catch(err => { return Observable.throw(err || 'Server error'); });
+  return result;
+  }
+
+  apagaProd(idProdParam: number ) {
+    let result = this.deleteaction(this._delProd, { IdProd: idProdParam }).map(
+      // tslint:disable-next-line:no-shadowed-variable
+      result => {
+
+          let busca = <any>result;
+          return busca;
+      }
+  ).catch(err => { return Observable.throw(err || 'Server error'); });
+  return result;
+  }
+  reportProdCat(idProdParam: number, nomeProdParam: string, idCatParam: number, nomeCatParam: string) {
+    let result = this.getaction(this._reportProdCat,
+      { IdProd: idProdParam, NomeProd: nomeProdParam, IdCat: idCatParam, NomeCat: nomeCatParam}).map(
       // tslint:disable-next-line:no-shadowed-variable
       result => {
 
