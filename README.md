@@ -14,7 +14,7 @@ Para informações mais detalhadas verifique a [Wiki](https://github.com/grynfox
 Home Page
 ![Alt Text](https://i.imgur.com/beVBCiT.jpg)
 
-Home Page resposiva
+Home Page responsiva
 
 ![Alt Text](https://i.imgur.com/c2BS3Ak.jpg)
 
