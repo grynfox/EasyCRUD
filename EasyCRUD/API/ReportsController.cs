@@ -19,10 +19,11 @@ namespace EasyCRUD.API
 
         public IEnumerable<Produto> GetProdCat(int IdCat)
         {
-            var tmp = this.banco.Produto.Where(linha => linha.IdCat == IdCat).ToList();
-
+            var tmp = this.banco.Produto.Where(linha => linha.Categoria.IdCat == IdCat).ToList();
+             
             return tmp;
         }
+
     }
        
 }
