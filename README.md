@@ -7,13 +7,14 @@ Utilizado neste projeto
 * Rest
 
 ##  Funcionamento do CRUD
+Para informações mais detalhadas verifique a [Wiki](https://github.com/grynfox/EasyCRUD/wiki)
 ### Dica: Verifique o caminho do BD antes de iniciar o projeto no arquivo web.config
 ![Alt Text](https://i.imgur.com/qiXpseC.jpg)
 ### Abaixo seguem alguns exemplos de funções presentes no projeto.
 Home Page
 ![Alt Text](https://i.imgur.com/beVBCiT.jpg)
 
-Home Page resposiva
+Home Page responsiva
 
 ![Alt Text](https://i.imgur.com/c2BS3Ak.jpg)
 
